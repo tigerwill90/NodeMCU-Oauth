@@ -26,4 +26,4 @@ compile and upload the sketch
 ```
 
 ### Version
-v0.6-dev
+v0.2-dev
