@@ -5,9 +5,9 @@
 
  Go on preferences menu and add this `http://arduino.esp8266.com/stable/package_esp8266com_index.json` to the `Additional Boards Manager URLs` field.
 
- * [ESP8266WiFi]
- * [ESP8266mDNS]
- * [ESP8266WebServer]
+ * ESP8266WiFi
+ * ESP8266mDNS
+ * ESP8266WebServer
  * [ESP8266RestServer](https://github.com/tigerwill90/esp8266-restclient)
  * [AES](https://github.com/spaniakos/AES)
  * [Base64](https://github.com/adamvr/arduino-base64)
