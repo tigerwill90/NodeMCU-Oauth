@@ -2,8 +2,8 @@
 #include <ESP8266WiFi.h>
 #include <ESP8266mDNS.h>
 #include <ESP8266WebServer.h>
-#include <ESP8266RestClient.h>
-#include <AES.h> // https://github.com/spaniakos/AES
+#include <ESP8266RestClient.h> //https://github.com/tigerwill90/esp8266-restclient
+#include <AES.h> //https://github.com/spaniakos/AES
 #include <Base64.h> //https://github.com/adamvr/arduino-base64
 #include <ArduinoJson.h> //https://github.com/bblanchon/ArduinoJson
 
