@@ -10,10 +10,8 @@
 
 #define DEBUG true
 
-const char *ssid = "...";
-const char *password = "...";
-
-int sensor = -1;
+const char *ssid = "devolo-bcf2af95d2e0";
+const char *password = "JDPTEXCYBNZMEEBT";
 
 ESP8266WebServer server(80);
 AES aes;
@@ -49,12 +47,11 @@ void getWind() {
         char randomNum[16];
         ESP8266TrueRandom.memfill(randomNum, 16);
         String randomString = randomNum;
-        String response;
-        if (sensor) {
-          response = "Detected movement";
-        } else {
-          response = "Undetected movement";
-        }
+        int sensor = analogRead(0);
+        Serial.println(sensor);
+        char buf[3];
+        sprintf(buf,"%i", sensor);
+        String response = buf;
         String plaintext = randomString + response;
         byte plain[plaintext.length() + 1];
         plaintext.getBytes(plain, plaintext.length() + 1);
@@ -84,7 +81,7 @@ void getWind() {
         StaticJsonBuffer<200> jsonBuffer;
         JsonObject& root = jsonBuffer.createObject();
         root["error"] = "access denied";
-        String output;        sensor = digitalRead(4);
+        String output;
         root.printTo(output);
         server.send(401, "application/json", output);
 
@@ -102,7 +99,7 @@ void setup() {
     Serial.begin(115200);
   #endif
 
-  pinMode(4, INPUT);
+  pinMode(0, INPUT);
   pinMode(2, OUTPUT);
 
   WiFi.mode(WIFI_STA);
@@ -134,6 +131,5 @@ void setup() {
 }
 
 void loop() {
-  sensor = digitalRead(4);
   server.handleClient();
 }
