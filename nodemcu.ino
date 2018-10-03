@@ -10,8 +10,8 @@
 
 #define DEBUG true
 
-const char *ssid = "devolo-bcf2af95d2e0";
-const char *password = "JDPTEXCYBNZMEEBT";
+const char *ssid = "labocisco";
+const char *password = "Class123";
 
 ESP8266WebServer server(80);
 AES aes;
@@ -19,7 +19,7 @@ AES aes;
 void getWind() {
   digitalWrite(2, LOW);
   // Rest Client
-  RestClient client = RestClient("192.168.192.29", 443, 1);
+  RestClient client = RestClient("10.136.1.112", 443, 1);
   String response = "";
   client.setHeader("authorization: Basic NTQzMjEwOjU0MzIxMDk4NzY1NDMyMTA=");
   String bearer = server.header("Authorization");
@@ -49,9 +49,28 @@ void getWind() {
         String randomString = randomNum;
         int sensor = analogRead(0);
         Serial.println(sensor);
-        char buf[3];
-        sprintf(buf,"%i", sensor);
-        String response = buf;
+        //char buf[3];
+        //sprintf(buf,"%i", sensor);
+        String response;
+        if (sensor >= 0 && sensor < 100) {
+          response = "origine = vent d'est";
+        } else if (sensor >= 100 && sensor < 200) {
+          response = "origine = vend de sud est";
+        } else if (sensor >= 200 && sensor < 350) {
+          response = "origine = vend de sud";
+        } else if (sensor >= 350 && sensor < 500) {
+          response = "origine = vend de nord est"; 
+        } else if (sensor >= 500 && sensor < 750) {
+          response = "origine = vend de sud ouest";
+        } else if (sensor >= 750 && sensor < 850) {
+          response = "origine = vend de nord";
+        } else if (sensor >=850 && sensor < 920) {
+          response = "origine = vend de nord ouest";
+        } else if (sensor >= 920) {
+          response = "origine = vend d'ouest";
+        } else {
+          response = "origine = inconnue";
+        }
         String plaintext = randomString + response;
         byte plain[plaintext.length() + 1];
         plaintext.getBytes(plain, plaintext.length() + 1);
